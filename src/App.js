@@ -1,6 +1,8 @@
 import { Switch, Route, Redirect } from "react-router-dom";
 import routes from "./routes";
 import { isLoggedIn } from "./utils/auth";
+import LeftBar from "./components/common/left-bar/LeftBar";
+import "./styles/main.scss";
 
 function App() {
   return (
@@ -30,5 +32,16 @@ const AuthRoute = (props) => {
 
   if (type === "private" && !loggedIn) return <Redirect to="/login" />;
 
-  return <Route {...props} />;
+  return (
+    <>
+      <LeftBar />
+      {type === "public" ? (
+        <div style={{ marginLeft: "15vw" }}>
+          <Route {...props} />
+        </div>
+      ) : (
+        <Route {...props} />
+      )}
+    </>
+  );
 };
